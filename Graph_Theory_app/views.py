@@ -11,9 +11,15 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.figure import Figure
 
+
+@csrf_exempt
+def first(request):
+    return render(request,"first.html")
+
 @csrf_exempt
 def index(request):
     return render(request,"index.html")
+
 
 @csrf_exempt
 def save_matrix_data(request):
@@ -35,7 +41,8 @@ def save_matrix_data(request):
         js = json.loads(contents)
         dim = js['dimension']
         matr= js['matrix']
-        graph_image=DisplayGraph(matr, 'dn',dim)
+        GraphType=js['GraphType']
+        graph_image=DisplayGraph(matr, GraphType,dim)
         # Generate and save the graph image
          
         return JsonResponse({'graph_image': graph_image})

@@ -7,10 +7,132 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Graph Theory PWA</title>
 </head>
 <body>
     <h1>Graph Theory PWA</h1>
     <title>Graph Theory PWA</title>
+    <form id="matrixForm">
+        
+        <label for="dimension">Enter matrix dimension: </label>
+        <input type="number" id="dimension" required>
+        <button type="submit">Generate</button>
+      </form>
+    
+      <div id="matrixContainer"></div>
+
+      <div id="submitButtonContainer" style="display: none;">
+        
+        <button type="submit" id="submitButton">Submit</button>
+      </div>
+
+      <div id="graphContainer"></div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
+      <script>
+        var dimension;
+        document.getElementById('matrixForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent form submission
+        // Get the dimension value entered by the user
+        dimension = parseInt(document.getElementById('dimension').value);
+        // Generate the matrix based on the dimension
+        generateMatrix(dimension);
+
+        document.getElementById('submitButtonContainer').style.display = 'block';
+        });
+
+        function generateMatrix(dimension) {
+        var matrixContainer = document.getElementById('matrixContainer');
+        matrixContainer.innerHTML = ''; // Clear previous matrix (if any)
+
+        var matrix = document.createElement('table');
+        matrix.classList.add('matrix');
+
+        // Generate matrix rows and columns
+        for (var i = 0; i < dimension; i++) {
+            var row = document.createElement('tr');
+            for (var j = 0; j < dimension; j++) {
+            var cell = document.createElement('td');
+            var input = document.createElement('input');
+            input.type = 'number';
+            input.name = `cell_${i}_${j}`;
+            cell.appendChild(input);
+            row.appendChild(cell);
+            }
+            matrix.appendChild(row);
+        }
+
+        matrixContainer.appendChild(matrix);
+        }
+/////////////////////////////////////////////////////////////////////
+        document.getElementById('submitButton').addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent form submission
+
+            // Handle the matrix input values
+            storeMatrixValues();
+            });
+/////////////////////////////////////////////////////////////////////
+console.log(dimension)
+function storeMatrixValues() {
+
+  var matrixValues = [];
+
+  for (var i = 0; i < dimension; i++) {
+    var rowValues = [];
+    for (var j = 0; j < dimension; j++) {
+      var input = document.getElementsByName(`cell_${i}_${j}`)[0];
+      var value = parseFloat(input.value);
+      rowValues.push(value);
+    }
+    
+    matrixValues.push(rowValues);
+    
+  }
+ 
+
+  var matrixData = {
+    dimension: dimension,
+    matrix: matrixValues
+  };
+  
+
+  var jsonData = JSON.stringify(matrixData);
+  console.log(jsonData)
+  
+  fetch('/save_matrix_data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: jsonData,
+})
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Error occurred while storing matrix values');
+    }
+  })
+  .then(data => {
+           // Retrieve the graph image from the JSON response
+           var graphImage = data.graph_image;
+
+            // Create an <img> element and set its source to the graph image
+            var imgElement = document.createElement('img');
+            imgElement.src = 'data:image/png;base64,' + graphImage;
+
+            // Append the image element to a container in your HTML
+            var graphContainer = document.getElementById('graphContainer');
+            graphContainer.innerHTML = '';
+            graphContainer.appendChild(imgElement);
+            })
+  .catch(error => {
+    console.error('An error occurred while storing matrix values:', error);
+  });
+}
+////////////////////////////////////////////////////////////////////
+
+    </script>
 </body>
 </html>

@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.figure import Figure
+from .algorithmesGraphes import PRIM
 
 
 @csrf_exempt
@@ -19,6 +20,20 @@ def first(request):
 @csrf_exempt
 def index(request):
     return render(request,"index.html")
+
+@csrf_exempt
+def prim(request):
+    with open('file.json', 'r') as file:
+        contents = file.read()
+    js = json.loads(contents)
+    dim = js['dimension']
+    matr= js['matrix']
+
+    GraphType=js['GraphType']
+    graph_image=PRIM.PRIM(matr,dim,GraphType)
+    # graph=JsonResponse({'graph_image': graph_image})
+    context={'graph':graph_image}
+    return render(request,"prim.html",context)
 
 
 @csrf_exempt

@@ -1,1 +1,1 @@
-{"GraphType": "un", "dimension": 2, "matrix": [[1, 0], [0, 0]]}
+{"GraphType": "dp", "dimension": 3, "matrix": [[2, 2, 3], [4, 2, 1], [4, 2, 1]]}

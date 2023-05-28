@@ -1,4 +1,3 @@
-{% load compress %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -11,17 +10,57 @@
     <title>{% block title %}{% endblock %}</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'src/output.css' %}">
-    {% endcompress %}
+    <link rel="stylesheet" href="../static/css/navbar.css">
 
 </head>
 <body>
-    <div >
-
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        <div class="navbar">
+            <!-- Navbar content here -->
+            <div class="navbar">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+                <a href="#">Link 4</a>
+            </div>
+           
+        </div>
+        <div class="sidebar">
+            <!-- Sidebar content here -->
+            <a href="#">
+                <button>Button 1</button>
+            </a>
+            <a href="#">
+                <button>Button 2</button>
+            </a>
+            <a href="#">
+                <button>Button 3</button>
+            </a>
+            <a href="#">
+                <button>Button 4</button>
+            </a>
+            <a href="#">
+                <button>Button 5</button>
+            </a>
+            <a href="#">
+                <button>Button 6</button>
+            </a>
+            <a href="#">
+                <button>Button 7</button>
+            </a>
+            <a href="#">
+                <button>Button 8</button>
+            </a>
+            <a href="#">
+                <button>Button 9</button>
+            </a>
+            <a href="#">
+                <button>Button 10</button>
+            </a>
+            
+        </div>
+        {% block content %}
+        {% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
 </body>

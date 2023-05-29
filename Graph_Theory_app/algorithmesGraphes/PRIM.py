@@ -71,12 +71,3 @@ def PRIM(matrix, nodesNumber, graphType):
     # Return the graph image as JSON response
     return graph_image
 
-
-# nodesNumber=3
-# graphType="dp"
-# mat=[[0,1,0],
-#      [0,0,1],
-#      [1,0,0]]
-
-
-# PRIM(mat,nodesNumber,graphType)

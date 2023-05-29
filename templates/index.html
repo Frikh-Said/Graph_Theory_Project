@@ -23,6 +23,8 @@
     </div>
     <label for="dimension">Enter matrix dimension:</label>
     <input type="number" id="dimension" required /><br>
+    <label for="source">Enter source:</label>
+    <input type="text" id="source" /><br>
       <button type="submit" id ="submit">Generate</button>
     
   </form>
@@ -69,13 +71,14 @@
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
 <script>
-  var dimension, GraphType;
+  var dimension, GraphType,source;
   document
     .getElementById("matrixForm")
     .addEventListener("submit", function (e) {
       e.preventDefault(); // Prevent form submission
       // Get the dimension value entered by the user
       dimension = parseInt(document.getElementById("dimension").value);
+      source = parseInt(document.getElementById("source").value);
       var isGraphOriented = $('input[name="question1"]:checked').val();
       var isGraphWeighted = $('input[name="question2"]:checked').val();
       if (isGraphOriented === "oui" && isGraphWeighted === "oui") {
@@ -155,6 +158,7 @@
       GraphType: GraphType,
       dimension: dimension,
       matrix: matrixValues,
+      source:source,
     };
 
     var jsonData = JSON.stringify(matrixData);

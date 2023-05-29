@@ -1,9 +1,13 @@
+import base64
+import io
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
 def KRUSKAL(matrix, nodesNumber, graphType):
     mat = np.array(matrix)
+
+    plt.clf()
 
     if graphType == "up":
         G = nx.from_numpy_array(mat, create_using=nx.Graph())
@@ -28,7 +32,15 @@ def KRUSKAL(matrix, nodesNumber, graphType):
     print("ACM=",ACM)
 
     nx.draw_networkx_edge_labels(mst, pos=layout, edge_labels=labels)
-    plt.show()
+    
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    graph_image = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
+
+    # Return the graph image as JSON response
+    return graph_image
 
 # nodesNumber = 3
 # graphType = "up"

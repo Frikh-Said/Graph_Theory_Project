@@ -1,8 +1,10 @@
+import base64
+import io
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
-def Dfs(matrix,source):
+def DFS(matrix,source):
 
     mat = np.array(matrix)
     G = nx.from_numpy_array(mat, create_using=nx.DiGraph)
@@ -25,11 +27,18 @@ def Dfs(matrix,source):
         tab.append(edg[1])
     nx.relabel_nodes(tree, mapping, copy=False)
     nx.draw(tree, with_labels=True)
-    return plt.show()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    graph_image = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
 
-mat=[[0,1,0],
-     [0,0,1],
-     [1,0,0]]
-source="B"
+    # Return the graph image as JSON response
+    return graph_image
 
-Dfs(mat,source)
+# mat=[[0,1,0],
+#      [0,0,1],
+#      [1,0,0]]
+# source="B"
+
+# Dfs(mat,source)

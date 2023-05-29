@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.figure import Figure
-from .algorithmesGraphes import PRIM , WARSHALL
+from .algorithmesGraphes import PRIM , WARSHALL,KRUSKAL,DFS
 
 
 @csrf_exempt
@@ -22,7 +22,55 @@ def first(request):
 def index(request):
     return render(request,"index.html")
 
+@csrf_exempt
+def dfs(request):
+    with open('file.json', 'r') as file:
+        contents = file.read()
+    js = json.loads(contents)
+    dim = js['dimension']
+    matr= js['matrix']
 
+    GraphType=js['GraphType']
+    
+    output = io.StringIO()
+    sys.stdout = output
+    graph_image=DFS.DFS(matr,dim,GraphType)
+
+    # Restore the default stdout
+    sys.stdout = sys.__stdout__
+
+    # Get the captured output as a string
+    output_str = output.getvalue()
+
+    # graph=JsonResponse({'graph_image': graph_image})
+    context={'graph':graph_image,
+             'output': output_str}
+    return render(request,"dfs.html",context)
+
+@csrf_exempt
+def kruskal(request):
+    with open('file.json', 'r') as file:
+        contents = file.read()
+    js = json.loads(contents)
+    dim = js['dimension']
+    matr= js['matrix']
+
+    GraphType=js['GraphType']
+    
+    output = io.StringIO()
+    sys.stdout = output
+    graph_image=KRUSKAL.KRUSKAL(matr,dim,GraphType)
+
+    # Restore the default stdout
+    sys.stdout = sys.__stdout__
+
+    # Get the captured output as a string
+    output_str = output.getvalue()
+
+    # graph=JsonResponse({'graph_image': graph_image})
+    context={'graph':graph_image,
+             'output': output_str}
+    return render(request,"kruskal.html",context)
 
 @csrf_exempt
 def warshall(request):

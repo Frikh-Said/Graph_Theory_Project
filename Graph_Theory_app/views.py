@@ -1,5 +1,6 @@
 import base64
 import io
+import sys
 from django.shortcuts import render
 from django.http import HttpResponse
 # Create your views here.
@@ -10,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.figure import Figure
-from .algorithmesGraphes import PRIM
+from .algorithmesGraphes import PRIM , WARSHALL
 
 
 @csrf_exempt
@@ -21,6 +22,33 @@ def first(request):
 def index(request):
     return render(request,"index.html")
 
+
+
+@csrf_exempt
+def warshall(request):
+    with open('file.json', 'r') as file:
+        contents = file.read()
+    js = json.loads(contents)
+    dim = js['dimension']
+    matr= js['matrix']
+
+    GraphType=js['GraphType']
+    
+    output = io.StringIO()
+    sys.stdout = output
+    graph_image=WARSHALL.WARSHALL(matr,dim,GraphType)
+
+    # Restore the default stdout
+    sys.stdout = sys.__stdout__
+
+    # Get the captured output as a string
+    output_str = output.getvalue()
+
+    # graph=JsonResponse({'graph_image': graph_image})
+    context={'graph':graph_image,
+             'output': output_str}
+    return render(request,"warshall.html",context)
+
 @csrf_exempt
 def prim(request):
     with open('file.json', 'r') as file:
@@ -30,9 +58,20 @@ def prim(request):
     matr= js['matrix']
 
     GraphType=js['GraphType']
+    
+    output = io.StringIO()
+    sys.stdout = output
     graph_image=PRIM.PRIM(matr,dim,GraphType)
+
+    # Restore the default stdout
+    sys.stdout = sys.__stdout__
+
+    # Get the captured output as a string
+    output_str = output.getvalue()
+
     # graph=JsonResponse({'graph_image': graph_image})
-    context={'graph':graph_image}
+    context={'graph':graph_image,
+             'output': output_str}
     return render(request,"prim.html",context)
 
 

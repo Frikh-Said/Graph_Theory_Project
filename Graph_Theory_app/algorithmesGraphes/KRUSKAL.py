@@ -30,10 +30,10 @@ def KRUSKAL(matrix, nodesNumber, graphType):
     nx.draw_networkx_edge_labels(mst, pos=layout, edge_labels=labels)
     plt.show()
 
-nodesNumber = 3
-graphType = "up"
-mat = [[0, 1, 0],
-       [0, 0, 1],
-       [1, 0, 0]]
+# nodesNumber = 3
+# graphType = "up"
+# mat = [[0, 1, 0],
+#        [0, 0, 1],
+#        [1, 0, 0]]
 
-KRUSKAL(mat, nodesNumber, graphType)
+# KRUSKAL(mat, nodesNumber, graphType)

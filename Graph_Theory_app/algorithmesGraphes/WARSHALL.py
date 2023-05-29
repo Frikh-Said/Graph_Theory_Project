@@ -1,6 +1,10 @@
+import base64
+import io
 import matplotlib.pyplot as plt
 import networkx as nx
 from numpy import mat
+import matplotlib
+matplotlib.use('agg')
 
 def WARSHALL(matrix,nodesNumber,graphType):
 
@@ -25,6 +29,7 @@ def WARSHALL(matrix,nodesNumber,graphType):
                     if s not in graph[pre]:
                         new_graph[pre].append(s)
     # Convert to array
+    plt.clf()
     graph = []
     for n in new_graph:
         node = new_graph[n]
@@ -45,12 +50,20 @@ def WARSHALL(matrix,nodesNumber,graphType):
     G.add_edges_from(graph)
     
     nx.draw(G, with_labels=True)
-    return plt.show()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    graph_image = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
 
-nodesNumber=3
-graphType="dp"
-mat=[[0,1,0],
-     [0,0,1],
-     [1,0,0]]
+    # Return the graph image as JSON response
+    return graph_image
+    
 
-WARSHALL(mat,nodesNumber,graphType)
+# nodesNumber=3
+# graphType="dp"
+# mat=[[0,1,0],
+#      [0,0,1],
+#      [1,0,0]]
+
+# WARSHALL(mat,nodesNumber,graphType)

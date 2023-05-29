@@ -78,7 +78,8 @@
       e.preventDefault(); // Prevent form submission
       // Get the dimension value entered by the user
       dimension = parseInt(document.getElementById("dimension").value);
-      source = parseInt(document.getElementById("source").value);
+      source = document.getElementById("source").value;
+
       var isGraphOriented = $('input[name="question1"]:checked').val();
       var isGraphWeighted = $('input[name="question2"]:checked').val();
       if (isGraphOriented === "oui" && isGraphWeighted === "oui") {

@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 from matplotlib.figure import Figure
-from .algorithmesGraphes import PRIM , WARSHALL,KRUSKAL,DFS
+from .algorithmesGraphes import PRIM , WARSHALL,KRUSKAL,DFS,BFS
 
 
 @csrf_exempt
@@ -23,18 +23,41 @@ def index(request):
     return render(request,"index.html")
 
 @csrf_exempt
+def bfs(request):
+    with open('file.json', 'r') as file:
+        contents = file.read()
+    js = json.loads(contents)
+    matr= js['matrix']
+
+    src=js['source']
+    
+    output = io.StringIO()
+    sys.stdout = output
+    graph_image=BFS.BFS(matr,src)
+
+    # Restore the default stdout
+    sys.stdout = sys.__stdout__
+
+    # Get the captured output as a string
+    output_str = output.getvalue()
+
+    # graph=JsonResponse({'graph_image': graph_image})
+    context={'graph':graph_image,
+             'output': output_str}
+    return render(request,"bfs.html",context)
+
+@csrf_exempt
 def dfs(request):
     with open('file.json', 'r') as file:
         contents = file.read()
     js = json.loads(contents)
-    dim = js['dimension']
     matr= js['matrix']
 
-    GraphType=js['GraphType']
+    src=js['source']
     
     output = io.StringIO()
     sys.stdout = output
-    graph_image=DFS.DFS(matr,dim,GraphType)
+    graph_image=DFS.DFS(matr,src)
 
     # Restore the default stdout
     sys.stdout = sys.__stdout__

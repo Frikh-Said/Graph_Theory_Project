@@ -5,6 +5,7 @@ import networkx as nx
 
 def BFS(matrix,source):
     mat = np.array(matrix)
+    plt.clf()
     G = nx.from_numpy_array(mat, create_using=nx.DiGraph)
     nodesNumber=mat.shape[0]
     mapping = {}
@@ -26,9 +27,9 @@ def BFS(matrix,source):
     nx.draw(tree, with_labels=True)
     return plt.show()
 
-mat=[[0,1,0],
-     [0,0,1],
-     [1,0,0]]
-source="A"
+# mat=[[0,1,0],
+#      [0,0,1],
+#      [1,0,0]]
+# source="A"
 
-BFS(mat,source)
+# BFS(mat,source)

@@ -7,6 +7,7 @@ import networkx as nx
 def DFS(matrix,source):
 
     mat = np.array(matrix)
+    plt.clf()
     G = nx.from_numpy_array(mat, create_using=nx.DiGraph)
     nodesNumber=mat.shape[0]
     print(nodesNumber)
@@ -15,7 +16,7 @@ def DFS(matrix,source):
         mapping[i] = chr(65 + i)
     nx.relabel_nodes(G, mapping, copy=False)
     # affichage d'arbre DFS si le graphe est direct
-    tree = nx.dfs_tree(G, source=source)
+    tree = nx.dfs_tree(G, source)
     print(tree.edges())
     # create table of nodes DFS
     tab = []

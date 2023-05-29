@@ -1,3 +1,5 @@
+import base64
+import io
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
@@ -25,7 +27,15 @@ def BFS(matrix,source):
         tab.append(edg[1])
     nx.relabel_nodes(tree, mapping, copy=False)
     nx.draw(tree, with_labels=True)
-    return plt.show()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    graph_image = base64.b64encode(buf.read()).decode('utf-8')
+    buf.close()
+
+    # Return the graph image as JSON response
+    return graph_image
+
 
 # mat=[[0,1,0],
 #      [0,0,1],

@@ -35,6 +35,10 @@ def bfs(request):
     sys.stdout = output
     graph_image=BFS.BFS(matr,src)
 
+    dim = js['dimension']  
+    GraphType=js['GraphType']
+    graph_img=DisplayGraph(matr, GraphType,dim)
+
     # Restore the default stdout
     sys.stdout = sys.__stdout__
 
@@ -43,6 +47,7 @@ def bfs(request):
 
     # graph=JsonResponse({'graph_image': graph_image})
     context={'graph':graph_image,
+              'image':graph_img,
              'output': output_str}
     return render(request,"bfs.html",context)
 
@@ -58,6 +63,9 @@ def dfs(request):
     output = io.StringIO()
     sys.stdout = output
     graph_image=DFS.DFS(matr,src)
+    dim = js['dimension']  
+    GraphType=js['GraphType']
+    graph_img=DisplayGraph(matr, GraphType,dim)
 
     # Restore the default stdout
     sys.stdout = sys.__stdout__
@@ -67,6 +75,7 @@ def dfs(request):
 
     # graph=JsonResponse({'graph_image': graph_image})
     context={'graph':graph_image,
+              'image':graph_img,
              'output': output_str}
     return render(request,"dfs.html",context)
 
@@ -80,9 +89,14 @@ def kruskal(request):
 
     GraphType=js['GraphType']
     
+    if(GraphType=='dn' or GraphType=='dp'):
+        return render(request,'error.html')
+    
     output = io.StringIO()
     sys.stdout = output
     graph_image=KRUSKAL.KRUSKAL(matr,dim,GraphType)
+ 
+    graph_img=DisplayGraph(matr, GraphType,dim)
 
     # Restore the default stdout
     sys.stdout = sys.__stdout__
@@ -92,6 +106,7 @@ def kruskal(request):
 
     # graph=JsonResponse({'graph_image': graph_image})
     context={'graph':graph_image,
+              'image':graph_img,
              'output': output_str}
     return render(request,"kruskal.html",context)
 
@@ -109,6 +124,7 @@ def warshall(request):
     sys.stdout = output
     graph_image=WARSHALL.WARSHALL(matr,dim,GraphType)
 
+    graph_img=DisplayGraph(matr, GraphType,dim)
     # Restore the default stdout
     sys.stdout = sys.__stdout__
 
@@ -117,6 +133,7 @@ def warshall(request):
 
     # graph=JsonResponse({'graph_image': graph_image})
     context={'graph':graph_image,
+              'image':graph_img,
              'output': output_str}
     return render(request,"warshall.html",context)
 
@@ -129,10 +146,14 @@ def prim(request):
     matr= js['matrix']
 
     GraphType=js['GraphType']
+
+    if(GraphType=='dn' or GraphType=='dp'):
+        return render(request,'error.html')
     
     output = io.StringIO()
     sys.stdout = output
     graph_image=PRIM.PRIM(matr,dim,GraphType)
+    graph_img=DisplayGraph(matr, GraphType,dim)
 
     # Restore the default stdout
     sys.stdout = sys.__stdout__
@@ -142,6 +163,7 @@ def prim(request):
 
     # graph=JsonResponse({'graph_image': graph_image})
     context={'graph':graph_image,
+              'image':graph_img,
              'output': output_str}
     return render(request,"prim.html",context)
 
@@ -202,7 +224,7 @@ def DisplayGraph(matrix, graphType,nodesNumber):
         nx.draw_networkx_edge_labels(G, pos=layout, edge_labels=labels)
     if graphType == "dn" or graphType == "un":
         nx.draw(G, with_labels=True)
-    
+
     # Convert the graph image to a base64-encoded string
     buf = io.BytesIO()
     plt.savefig(buf, format='png')

@@ -2,71 +2,54 @@
 {% block content %}
 
 <div class="info">
-  <form id="matrixForm">
-    <label >Is the graph oriented?</label>
-    <div id="oriented">
-      <label for="oui"
-        ><input type="radio" name="question1" value="oui" id="oui" /> Yes</label
-      >
-      <label for="non"
-        ><input type="radio" name="question1" value="non" id="non" /> No</label
-      >
-    </div>
-    <label >Is the graph weighted?</label>
-    <div id="weighted">
-      <label for="yes"
-        ><input type="radio" name="question2" value="oui" id="yes" /> Yes</label
-      >
-      <label for="no"
-        ><input type="radio" name="question2" value="non" id="no" /> No</label
-      >
-    </div>
-    <label for="dimension">Enter matrix dimension:</label>
-    <input type="number" id="dimension" required /><br>
-    <label for="source">Enter source:</label>
-    <input type="text" id="source" /><br>
-      <button type="submit" id ="submit">Generate</button>
-    
-  </form>
-
-  <div id="matrixContainer"></div>
-
-  <div id="submitButtonContainer" style="display: none">
-    <button type="submit" id="submitButton">Submit</button>
-  </div>
-</div>
-
-<!-- Main content here -->
-
-<div class="graph">
-  <div id="graphContainer"></div>
-  <!-- Right bar content here -->
-</div>
-
-<!-- Center content -->
-<!-- <form id="matrixForm">
-      Is the graph oriented ?
-      <input type="radio" name="question1" value="oui" id="oui" /> <label for="oui">oui</label>
-      <input type="radio" name="question1" value="non" id="non" /> <label for="non">non</label>
-      <br />Is the graph weighted ?
-      <input type="radio" name="question2" value="oui" id="yes" /> <label for="oui">oui</label>
-      <input type="radio" name="question2" value="non" id="no" /> <label for="non">non</label>
-      <br />
-      <label for="dimension">Enter matrix dimension: </label>
-        <input type="number" id="dimension" required>
-        <button type="submit">Generate</button>
-      </form>
-    
-      <div id="matrixContainer"></div>
-
-      <div id="submitButtonContainer" style="display: none;">
-        
-        <button type="submit" id="submitButton">Submit</button>
+  <div style="display: flex; padding-left: 25px;">
+    <div class="card" style="width: 600px; height: 500px; margin-left: 30px; margin-top: 30px;">
+      <div class="card-body">
+        <form id="matrixForm">
+          <div class="mb-3">
+            <label for="question1" class="form-label">Is the graph oriented?</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="question1" id="question1_oui" value="oui">
+              <label class="form-check-label" for="question1_oui">yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="question1" id="question1_non" value="non">
+              <label class="form-check-label" for="question1_non">no</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="question2" class="form-label">Is the graph weighted?</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="question2" id="question2_oui" value="oui">
+              <label class="form-check-label" for="question2_oui">yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="question2" id="question2_non" value="non">
+              <label class="form-check-label" for="question2_non">no</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="dimension" class="form-label">Enter matrix dimension:</label>
+            <input type="number" class="form-control" style="width: 100%;" id="dimension" required><br>
+            <label for="source">Enter source:</label>
+            <input type="text" id="source"  class="form-control" style="width: 100%;"/><br>
+          </div>
+          <button type="submit" class="btn btn-primary"
+            style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">Generate</button>
+        </form>
       </div>
+    </div>
+  
+    <div class="card"
+      style="width: 600px; height: 500px; margin-left: 30px; margin-top: 30px; margin-right: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+      <div id="matrixContainer" style="height: calc(100% - 50px); overflow-y: auto; margin-top: 50px;"></div>
+      <div id="submitButtonContainer" style="display: none; padding: 10px;">
+        <button type="submit" id="submitButton" class="btn btn-primary"
+          style="position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);">Submit</button>
+      </div>
+    </div>
   </div>
-
-
-    <div id="graphContainer"></div> -->
+</div>
 
 <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 

@@ -1,9 +1,16 @@
 {% extends 'base.html' %} {% load static %} {% block title %}DFS{% endblock %}
 {% block content %}
-<h1>Output:</h1>
-<div>{{ output }}</div>
-<div id="graphContainer"></div>
-
+<div style="display: flex; padding-left: 5px;">
+    <div class="card"
+          style="width: 600px; height: 550px; margin-left: 30px; margin-top: 30px; margin-right: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div id="imageContainer"></div>
+        </div>
+    <div class="card"
+          style="width: 600px; height: 550px; margin-left: 30px; margin-top: 30px; margin-right: auto; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h3>Output:</h3>
+    <h3>{{ output }}</h3>
+    <div id="graphContainer"></div>
+    </div></div>
 <script>
 
 
@@ -15,12 +22,34 @@
         // Create an <img> element and set its source to the graph image
         var imgElement = document.createElement("img");
         imgElement.src = "data:image/png;base64," + graphImage;
+        imgElement.style="width:500px ;height:450px"
 
         // Append the image element to a container in your HTML
         var graphContainer = document.getElementById("graphContainer");
         graphContainer.innerHTML = "";
         graphContainer.appendChild(imgElement);
+///////////////////////////////////////////////////////////////////////////////////////////
 
+// Create an <img> element and set its source to the graph image
+var imgElement = document.createElement("img");
+    imgElement.src = "data:image/png;base64," + graphImage;
+
+    // Append the image element to a container in your HTML
+    var graphContainer = document.getElementById("graphContainer");
+    graphContainer.innerHTML = "";
+    graphContainer.appendChild(imgElement);
+
+    // Continue with further actions based on the data
+    var image = '{{ image|safe }}';
+
+    // Create an <img> element and set its source to the graph image
+    var img = document.createElement("img");
+    img.src = "data:image/png;base64," + image;
+
+    // Append the image element to a container in your HTML
+    var imageContainer = document.getElementById("imageContainer");
+    imageContainer.innerHTML = "";
+    imageContainer.appendChild(img);
 
 </script>
 

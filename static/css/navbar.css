@@ -1,123 +1,24 @@
-body{
-    margin:0;
-    padding:0;
-}
-.container{
-    width:100vw;
-    height: 100vh;
 
-    display:grid;
-    grid-gap:3px;
-    grid-template:70px auto 50px 30px /repeat(6,1fr);
-    grid-template-areas:
-        "n n n n n n"
-        "s i i g g g"
-        "s i i g g g"
-        "s i i g g g";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-/* ////////////////////////// */
-.navbar {
-    grid-area: n;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #14213d;
-}
-.navbar a {
-    margin: 0 30px;
-    color: #fca311;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-}
-.navbar a:hover {
-    color: #fca311;
-}
-/* ////////////////////////// */
 
 
-.sidebar {
-    grid-area: s;
-    background-color: #14213d;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+#matrixContainer {
+    padding-top: 30px;
+    padding-left: 30px;
+    height: calc(100% - 50px);
+    overflow-y: auto;
 }
-.sidebar a {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-}
-.sidebar button {
-    width: 100%;
-    background-color: #fca311;
-    color: #14213d;
-    border: none;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-}
-.sidebar button:hover {
-    background-color: #ffcc80;
-}
-/* ////////////////////////// */
-.info {
-    grid-area: i;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: left;
-    /* background-color: #fca311; */
-    padding: 20px;
-    border-radius: 10px;
-}
-#matrixForm {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+
+.graph {
     margin-bottom: 20px;
-}
-#matrixForm label {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    font:bold;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
-}
-#matrixForm input[type="radio"] {
-    margin: 0 5px;
-}
-#matrixForm input[type="number"] {
-    width: 150px;
-    padding: 5px;
-    font-size: 16px;
-}
-#submitButtonContainer {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-#submitButton, #submit{
-    background-color: #14213d;
-    color: #fca311;
-    border: none;
-    padding: 10px 20px;
-    font-weight: bold;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+    padding-bottom: 20px;
 }
 
-
-/* ////////////////////////// */
-
-.graph{
-    grid-area:g;
-    
-}
-.matrix {
+/* .matrix {
     width: 30px;
     height: 30px;
-  }
+  } */
